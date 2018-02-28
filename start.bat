@@ -1,0 +1,1 @@
+start cmd.exe /k "python D:\Primo\main.py"
