@@ -11,6 +11,27 @@ bot_prefix = "?"
 client = commands.Bot(command_prefix=bot_prefix)
 
 
+async def music(ctx, path):
+    try:
+        channel = ctx.message.author.voice_channel
+        if channel is None:
+            await client.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
+            return False
+
+        voice = await client.join_voice_channel(channel)
+        player = voice.create_ffmpeg_player(path)
+        player.start()
+        counter = 0
+        duration = MP3(path).info.length
+        while not counter >= duration:
+            await asyncio.sleep(1)
+            counter = counter + 1
+        server = ctx.message.server
+        await client.voice_client_in(server).disconnect()
+    except Exception as exc:
+        await client.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+
+
 @client.command(pass_context=True)
 async def clear(ctx, number):
     messages = []
@@ -21,9 +42,13 @@ async def clear(ctx, number):
 
 
 @client.command(pass_context=True)
-async def oida(ctx):
-    channel = ctx.message.channel
-    await client.send_message(channel, "Bist behindat potzn?")
+async def oida(ctx, member: discord.Member = None):
+    if member is None:
+        member = ctx.message.author
+        await client.send_message(member, "potzn?")
+    elif member is member:
+        member = ctx.message.author
+        await client.send_message(member, "fuck")
 
 
 @client.command(pass_context=True)
@@ -50,76 +75,101 @@ async def leave():
     await client.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
 
 
+# Sounds
 @client.command(pass_context=True)
 async def do(ctx):
-    try:
-        channel = ctx.message.author.voice.voice_channel
-        voice = await client.join_voice_channel(channel)
-        player = voice.create_ffmpeg_player("./audio/the_way.mp3")
-        player.start()
-        counter = 0
-        duration = MP3("./audio/the_way.mp3").info.length
-        while not counter >= duration:
-            await asyncio.sleep(1)
-            counter = counter + 1
-        server = ctx.message.server
-        await client.voice_client_in(server).disconnect()
-    except Exception as exc:
-        await client.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+    await music(ctx, "./audio/the_way.mp3")
 
 
 @client.command(pass_context=True)
 async def noway(ctx):
-    try:
-        channel = ctx.message.author.voice.voice_channel
-        voice = await client.join_voice_channel(channel)
-        player = voice.create_ffmpeg_player("./audio/noway.mp3")
-        player.start()
-        counter = 0
-        duration = 1.05
-        while not counter >= duration:
-            await asyncio.sleep(1)
-            counter = counter + 1
-        server = ctx.message.server
-        await client.voice_client_in(server).disconnect()
-    except Exception as exc:
-        await client.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+    await music(ctx, "./audio/noway.mp3")
 
 
 @client.command(pass_context=True)
 async def inthebag(ctx):
-    try:
-        channel = ctx.message.author.voice.voice_channel
-        voice = await client.join_voice_channel(channel)
-        player = voice.create_ffmpeg_player("./audio/sky_inthebag.mp3")
-        player.start()
-        counter = 0
-        duration = MP3("./audio/sky_inthebag.mp3").info.length
-        while not counter >= duration:
-            await asyncio.sleep(1)
-            counter = counter + 1
-        server = ctx.message.server
-        await client.voice_client_in(server).disconnect()
-    except Exception as exc:
-        await client.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+    await music(ctx, "./audio/sky_inthebag.mp3")
 
 
 @client.command(pass_context=True)
-async def uready(ctx):
-    try:
-        channel = ctx.message.author.voice.voice_channel
-        voice = await client.join_voice_channel(channel)
-        player = voice.create_ffmpeg_player("./audio/accept.mp3")
-        player.start()
-        counter = 0
-        duration = MP3("./audio/accept.mp3").info.length
-        while not counter >= duration:
-            await asyncio.sleep(1)
-            counter = counter + 1
-        server = ctx.message.server
-        await client.voice_client_in(server).disconnect()
-    except Exception as exc:
-        await client.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+async def klassisch(ctx):
+    await music(ctx, "./audio/klassischer_lich.mp3")
+
+
+@client.command(pass_context=True)
+async def woasned(ctx):
+    await music(ctx, "./audio/i_woas_ned_wos_es_hobts.mp3")
+
+
+@client.command(pass_context=True)
+async def invobag(ctx):
+    await music(ctx, "./audio/Invo_inthebag_01.mp3")
+
+
+@client.command(pass_context=True)
+async def dead(ctx):
+    await music(ctx, "./audio/dead_as_hell.mp3")
+
+
+@client.command(pass_context=True)
+async def ezmmr(ctx):
+    await music(ctx, "./audio/ez_mmr_with_jogoe_gaming.mp3")
+
+
+@client.command(pass_context=True)
+async def spritzwein(ctx):
+    await music(ctx, "./audio/man_bringe_spritzwein.mp3")
+
+
+@client.command(pass_context=True)
+async def dmg(ctx):
+    await music(ctx, "./audio/heizakara_i_ho_dmg.mp3")
+
+
+@client.command(pass_context=True)
+async def killingspree(ctx):
+    await music(ctx, "./audio/lich_killing_spree.mp3")
+
+
+@client.command(pass_context=True)
+async def aushem(ctx):
+    await music(ctx, "./audio/weng_wos_wiad_mi_den_dea_hund_imma_aushem.mp3")
+
+
+@client.command(pass_context=True)
+async def rune(ctx):
+    await music(ctx, "./audio/fidi_rune.mp3")
+
+
+@client.command(pass_context=True)
+async def chance(ctx):
+    await music(ctx, "./audio/keine_chance.mp3")
+
+
+@client.command(pass_context=True)
+async def danke(ctx):
+    await music(ctx, "./audio/lernvideo_danke.mp3")
+
+
+@client.command(pass_context=True)
+async def eingabetaste(ctx):
+    await music(ctx, "./audio/lernvideo_eingabetaste.mp3")
+
+
+@client.command(pass_context=True)
+async def oah(ctx):
+    await music(ctx, "./audio/lich_oah.mp3")
+
+
+@client.command(pass_context=True)
+async def speim(ctx):
+    await music(ctx, "./audio/speim.mp3")
+
+
+@client.command(pass_context=True)
+async def onfire(ctx):
+    await music(ctx, "./audio/jogo_on_fire.mp3")
+# end of sounds
 
 
 @client.command(pass_context=True)
@@ -135,6 +185,7 @@ async def on_ready():
     print("ID: {}".format(client.user.id))
     await client.send_message(discord.Object(id='418535433144893440'),
                               "Hello my fellow <:kebap:418534975831277589> eaters")
+
     # , tts=True
 
 
