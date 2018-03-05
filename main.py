@@ -1,11 +1,14 @@
 import random
 import discord
 import asyncio
+import os
+import traceback
+import logging
+from exp import *
 from os import listdir
 from os.path import isfile
 from os.path import join
 from mutagen.mp3 import MP3
-from discord.ext.commands import Bot
 from discord.ext import commands
 
 if not discord.opus.is_loaded():
@@ -14,10 +17,8 @@ if not discord.opus.is_loaded():
 bot_prefix = "?"
 client = commands.Bot(command_prefix=bot_prefix)
 
-
-sounds = ['do', 'noway', 'inthebag', 'klassisch', 'woasned', 'invobag', 'dead', 'ezmmr', 'spritzwein', 'dmg',
-          'killingspree', 'aushem', 'rune', 'chance', 'danke', 'eingebetaste', 'oah', 'speim', 'onfire', 'dejavu',
-          'running','ababag']
+logging.basicConfig(filename='.\output.log', filemode='w', level=logging.INFO,
+                    format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 async def music(ctx, path):
@@ -41,8 +42,8 @@ async def music(ctx, path):
         await client.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
 
 
-async def inthebags(ctx, hero=None):
-    if hero is None:
+async def inthebags(ctx, hero1=None, hero2=None):
+    if hero1 is None:
         folderpath = "./audio/inthebags"
         files = [f for f in listdir(folderpath) if isfile(join(folderpath, f))]
 
@@ -56,34 +57,33 @@ async def inthebags(ctx, hero=None):
 
         channel = ctx.message.channel
         await client.send_message(channel, "Playing " + onlymp3files[randomfile][:-4] + "'s in the Bag Sound")
+
+        await music(ctx, path)
+    elif hero2 is None:
+        path = "./audio/inthebags/" + hero1 + ".mp3"
+        if os.path.exists(path):
+            channel = ctx.message.channel
+            await client.send_message(channel, "Playing " + hero1 + "'s in the Bag Sound")
+
+            await music(ctx, path)
+        else:
+            channel = ctx.message.channel
+            await client.send_message(channel, hero1 + " is koa Hero du pfeiffn\n" + inthebagexp)
     else:
-        path = "./audio/inthebags/" + hero + ".mp3"
-        channel = ctx.message.channel
-        await client.send_message(channel, "Playing " + hero + "'s in the Bag Sound")
+        path = "./audio/inthebags/" + hero1 + " " + hero2 + ".mp3"
+        if os.path.exists(path):
+            channel = ctx.message.channel
+            await client.send_message(channel, "Playing " + hero1 + " " + hero2 + "'s in the Bag Sound")
 
-    try:
-        channel = ctx.message.author.voice_channel
-        if channel is None:
-            await client.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
-            return False
-
-        voice = await client.join_voice_channel(channel)
-        player = voice.create_ffmpeg_player(path)
-        player.start()
-        counter = 0
-        duration = MP3(path).info.length
-        while not counter >= duration:
-            await asyncio.sleep(1)
-            counter = counter + 1
-        server = ctx.message.server
-        await client.voice_client_in(server).disconnect()
-    except Exception as exc:
-        await client.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+            await music(ctx, path)
+        else:
+            channel = ctx.message.channel
+            await client.send_message(channel, hero1 + " is koa Hero du pfeiffn\n" + inthebagexp)
 
 
 @client.command(pass_context=True)
-async def inthebag(ctx, hero=None):
-    await inthebags(ctx, hero)
+async def inthebag(ctx, hero1=None, hero2=None):
+    await inthebags(ctx, hero1, hero2)
 
 
 @client.command(pass_context=True)
@@ -98,18 +98,14 @@ async def clear(ctx, number):
 @client.command(pass_context=True)
 async def sounds(ctx):
     channel = ctx.message.channel
-    await client.send_message(channel, "```do | noway | klassisch | woasned | invobag | dead | ezmmr | "
-                                       "spritzwein | dmg | killingspree | aushem | rune | chance | danke | eingabetaste"
-                                       " | oah | speim | onfire | dejavu | running | skybag```\n" +
-                                        "```inthebag <Hero_Name>  -> Plays the Heros in the bag sound, without a Hero "
-                                        "name, a random in the bag sound will be played```")
+    await client.send_message(channel, soundsexp)
 
 
 @client.command(pass_context=True)
 async def oida(ctx, member: discord.Member = None):
     if member is None:
         member = ctx.message.author
-        await client.send_message(member, "potzn?")
+        await client.send_message(member, str(member)[:-5] + "?")
     elif member is member:
         member = ctx.message.author
         await client.send_message(member, "fuck")
@@ -117,7 +113,7 @@ async def oida(ctx, member: discord.Member = None):
 
 @client.command(pass_context=True)
 async def volume(ctx, value: int):
-    pass
+        pass
 
 
 @client.command(pass_context=True)
@@ -238,13 +234,25 @@ async def dejavu(ctx):
 @client.command(pass_context=True)
 async def running(ctx):
     await music(ctx, "./audio/90s.mp3")
+
+
+@client.command(pass_context=True)
+async def schub(ctx):
+    await music(ctx, "./audio/schub.mp3")
 # end of sounds
 
 
 @client.command(pass_context=True)
-async def kebap(ctx):
+async def kebap(ctx, kebaps:int = None):
     channel = ctx.message.channel
-    await client.send_message(channel, "You have gained a <:kebap:418534975831277589>")
+    if kebaps is None:
+        await client.send_message(channel, "Waifü Kebap host den gessn?")
+    elif kebaps >= 5:
+        await client.send_message(channel, "I moa ned dasd {0} Kebap gessn host, oda?".format(kebaps))
+    elif kebaps >= 0:
+        await client.send_message(channel, "Host wirklich {0} Kebap gessn?".format(kebaps))
+    else:
+        await client.send_message(channel, str(kebaps))
 
 
 @client.event
@@ -255,11 +263,18 @@ async def on_ready():
     await client.send_message(discord.Object(id='418535433144893440'),
                               "Hello my fellow <:kebap:418534975831277589> eaters")
 
+
+@client.event
+async def on_error(ctx, event, *args, **kwargs):
+    message = args[0]
+    logging.warning(traceback.format_exc())
+    channel = ctx.message.channel
+    await client.send_message(channel, "Error djud!")
+
+
     # , tts=True
 
 
 client.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DXiISA.W0cNVm0V4Hv4UgbwFStMqejIZKk")
 
 # add kebap stats
-
-# random inthebag sound

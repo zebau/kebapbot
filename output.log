@@ -1,0 +1,13 @@
+2018-03-06 00:14:35,396:INFO:on_ready has successfully been registered as an event
+2018-03-06 00:14:35,396:INFO:on_error has successfully been registered as an event
+2018-03-06 00:14:35,397:INFO:logging in using static token
+2018-03-06 00:14:36,095:INFO:Created websocket connected to wss://gateway.discord.gg?encoding=json&v=6
+2018-03-06 00:14:36,096:INFO:sent the identify payload to create the websocket
+2018-03-06 00:14:40,120:INFO:attempting to join voice channel JogösBeautyPalace
+2018-03-06 00:14:40,342:INFO:Unhandled event VOICE_SERVER_UPDATE
+2018-03-06 00:14:40,343:INFO:created opus encoder with {'sampling_rate': 48000, 'channels': 2, 'application': 2049, 'frame_length': 20, 'sample_size': 4, 'samples_per_frame': 960, 'frame_size': 3840, '_state': <discord.opus.LP_EncoderStruct object at 0x0336A120>}
+2018-03-06 00:14:40,343:INFO:voice connection is connecting...
+2018-03-06 00:14:40,343:INFO:Voice endpoint found eu-central975.discord.gg (IP: 5.200.14.213)
+2018-03-06 00:14:40,544:INFO:selected the voice protocol for use
+2018-03-06 00:14:40,572:INFO:received secret key for voice connection
+2018-03-06 00:14:43,549:INFO:playing URL https://www.youtube.com/watch?v=DzNPBqcJGk4
