@@ -2,7 +2,6 @@ import random
 import discord
 import asyncio
 import os
-import traceback
 import logging
 from exp import *
 from os import listdir
@@ -17,8 +16,11 @@ if not discord.opus.is_loaded():
 bot_prefix = "?"
 client = commands.Bot(command_prefix=bot_prefix)
 
-logging.basicConfig(filename='.\output.log', filemode='w', level=logging.INFO,
-                    format='%(asctime)s:%(levelname)s:%(message)s')
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='output.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 
 async def music(ctx, path):
@@ -131,119 +133,12 @@ async def yt(ctx, youtube_url):
 
 
 @client.command(ass_context=True)
-async def leave():
+async def leave(ctx):
     await client.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
 
 
-# Sounds
 @client.command(pass_context=True)
-async def theway(ctx):
-    await music(ctx, "./audio/the_way.mp3")
-
-
-@client.command(pass_context=True)
-async def noway(ctx):
-    await music(ctx, "./audio/noway.mp3")
-
-
-@client.command(pass_context=True)
-async def skybag(ctx):
-    await music(ctx, "./audio/sky_inthebag.mp3")
-
-
-@client.command(pass_context=True)
-async def klassisch(ctx):
-    await music(ctx, "./audio/klassischer_lich.mp3")
-
-
-@client.command(pass_context=True)
-async def woasned(ctx):
-    await music(ctx, "./audio/i_woas_ned_wos_es_hobts.mp3")
-
-
-@client.command(pass_context=True)
-async def dead(ctx):
-    await music(ctx, "./audio/dead_as_hell.mp3")
-
-
-@client.command(pass_context=True)
-async def ezmmr(ctx):
-    await music(ctx, "./audio/ez_mmr_with_jogoe_gaming.mp3")
-
-
-@client.command(pass_context=True)
-async def spritzwein(ctx):
-    await music(ctx, "./audio/man_bringe_spritzwein.mp3")
-
-
-@client.command(pass_context=True)
-async def dmg(ctx):
-    await music(ctx, "./audio/heizakara_i_ho_dmg.mp3")
-
-
-@client.command(pass_context=True)
-async def killingspree(ctx):
-    await music(ctx, "./audio/lich_killing_spree.mp3")
-
-
-@client.command(pass_context=True)
-async def aushem(ctx):
-    await music(ctx, "./audio/weng_wos_wiad_mi_den_dea_hund_imma_aushem.mp3")
-
-
-@client.command(pass_context=True)
-async def rune(ctx):
-    await music(ctx, "./audio/fidi_rune.mp3")
-
-
-@client.command(pass_context=True)
-async def chance(ctx):
-    await music(ctx, "./audio/keine_chance.mp3")
-
-
-@client.command(pass_context=True)
-async def danke(ctx):
-    await music(ctx, "./audio/lernvideo_danke.mp3")
-
-
-@client.command(pass_context=True)
-async def eingabetaste(ctx):
-    await music(ctx, "./audio/lernvideo_eingabetaste.mp3")
-
-
-@client.command(pass_context=True)
-async def oah(ctx):
-    await music(ctx, "./audio/lich_oah.mp3")
-
-
-@client.command(pass_context=True)
-async def speim(ctx):
-    await music(ctx, "./audio/speim.mp3")
-
-
-@client.command(pass_context=True)
-async def onfire(ctx):
-    await music(ctx, "./audio/jogo_on_fire.mp3")
-
-
-@client.command(pass_context=True)
-async def dejavu(ctx):
-    await music(ctx, "./audio/dejavu.mp3")
-
-
-@client.command(pass_context=True)
-async def running(ctx):
-    await music(ctx, "./audio/90s.mp3")
-
-
-@client.command(pass_context=True)
-async def schub(ctx):
-    await music(ctx, "./audio/schub.mp3")
-# end of sounds
-
-
-@client.command(pass_context=True)
-async def kebap(ctx, kebaps:int = None):
+async def kebapold(ctx, kebaps:int = None):
     channel = ctx.message.channel
     if kebaps is None:
         await client.send_message(channel, "Waifü Kebap host den gessn?")
@@ -255,25 +150,43 @@ async def kebap(ctx, kebaps:int = None):
         await client.send_message(channel, str(kebaps))
 
 
+# TODO finish ?kebap
+@client.command(pass_context=True)
+async def kebap(ctx):
+    channel = ctx.message.channel
+    message = ctx.message
+
+    if message.content.startswith('?kebap'):
+        await client.send_message(channel, "Wiavü Kebap host den gessn?")
+        kebaps = await client.wait_for_message()
+        kebaps = kebaps.content
+
+        if int(kebaps) >= 5:
+            await client.send_message(channel, "I moa ned dasd {0} Kebap gessn host, oda?".format(kebaps))
+
+        elif int(kebaps) > 0:
+            await client.send_message(channel, "Don post amoi a bild von deim Kebap in #kebaptalk")
+
+
+@client.event
+async def on_message(message):
+    await client.process_commands(message)
+    if 'kebap' in message.content:
+        await client.add_reaction(message, "kebap:418534975831277589")
+
+
 @client.event
 async def on_ready():
     print("Bot Online!")
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
+    await client.change_presence(game=discord.Game(name='with Kebaps'))
     await client.send_message(discord.Object(id='418535433144893440'),
                               "Hello my fellow <:kebap:418534975831277589> eaters")
 
 
-@client.event
-async def on_error(ctx, event, *args, **kwargs):
-    message = args[0]
-    logging.warning(traceback.format_exc())
-    channel = ctx.message.channel
-    await client.send_message(channel, "Error djud!")
-
-
-    # , tts=True
-
+# TODO make error logs work
+# TODO send private messages in my discord server
 
 client.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DXiISA.W0cNVm0V4Hv4UgbwFStMqejIZKk")
 
