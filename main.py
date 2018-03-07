@@ -4,7 +4,6 @@ import discord
 import asyncio
 import os
 import logging
-from bs4 import BeautifulSoup
 from exp import *
 from os import listdir
 from os.path import isfile, join
@@ -306,6 +305,7 @@ async def dotanow(self):
 async def csgonow(self):
     url = "https://steamdb.info/app/730/graphs/"
     async with aiohttp.get(url) as response:
+        from bs4 import BeautifulSoup
         soupObject = BeautifulSoup(await response.text(), "html.parser")
     try:
         online = soupObject.find(class_='steamspy-stats').find('li').find('strong').get_text()
