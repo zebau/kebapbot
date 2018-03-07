@@ -1,1 +1,1 @@
-start cmd.exe /k "python D:\Primo\main.py"
+start cmd.exe /k "python C:\Users\alex\Documents\kebapbot\main.py"

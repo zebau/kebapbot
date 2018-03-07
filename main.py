@@ -136,7 +136,10 @@ async def yt(ctx, youtube_url):
 
 @bot.command(ass_context=True)
 async def leave():
-    await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
+    try:
+        await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
+    except Exception as exc:
+        await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
 
 
 @bot.command(pass_context=True)
