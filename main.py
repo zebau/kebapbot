@@ -142,19 +142,6 @@ async def leave():
         await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
 
 
-@bot.command(pass_context=True)
-async def kebapold(ctx, kebaps:int = None):
-    channel = ctx.message.channel
-    if kebaps is None:
-        await bot.send_message(channel, "Waifü Kebap host den gessn?")
-    elif kebaps >= 5:
-        await bot.send_message(channel, "I moa ned dasd {0} Kebap gessn host, oda?".format(kebaps))
-    elif kebaps >= 0:
-        await bot.send_message(channel, "Host wirklich {0} Kebap gessn?".format(kebaps))
-    else:
-        await bot.send_message(channel, str(kebaps))
-
-
 # TODO finish ?kebap
 @bot.command(pass_context=True)
 async def kebap(ctx):
@@ -168,9 +155,17 @@ async def kebap(ctx):
 
         if int(kebaps) >= 5:
             await bot.send_message(channel, "I moa ned dasd {0} Kebap gessn host, oda?".format(kebaps))
-
+            kebapanswer = await bot.wait_for_message()
+            kebapanswer = kebapanswer.content
+            if kebapanswer.startswith('y') or kebapanswer.startswith('doch'):
+                await bot.send_message(channel, "Schau dasd weida kimmst")
+            elif kebapanswer.startswith('na'):
+                await bot.send_message(channel, "I moa hoid a")
+            else:
+                pass
         elif int(kebaps) > 0:
             await bot.send_message(channel, "Don post amoi a bild von deim Kebap in #kebaptalk")
+
 
 
 @bot.command(pass_context=True)
@@ -283,11 +278,11 @@ async def schub(ctx):
     await music(ctx, "./audio/schub.mp3")
 
 
-@bot.event
-async def on_message(message):
-    await bot.process_commands(message)
-    if 'kebap' in message.content:
-        await bot.add_reaction(message, "kebap:418534975831277589")
+# @bot.event
+# async def on_message(message):
+#    await bot.process_commands(message)
+#    if 'kebap' in message.content:
+#       await bot.add_reaction(message, "kebap:418534975831277589")
 
 
 @bot.command(pass_context=True)
