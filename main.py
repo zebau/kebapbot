@@ -194,6 +194,11 @@ async def woasned(ctx):
 
 
 @bot.command(pass_context=True)
+async def suh(ctx):
+    await music(ctx, "./audio/suh.mp3")
+
+
+@bot.command(pass_context=True)
 async def dead(ctx):
     await music(ctx, "./audio/dead_as_hell.mp3")
 
