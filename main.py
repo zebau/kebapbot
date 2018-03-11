@@ -167,6 +167,10 @@ async def kebap(ctx):
             await bot.send_message(channel, "Don post amoi a bild von deim Kebap in #kebaptalk")
 
 
+@bot.command(pass_context=True)
+async def reg(ctx):
+    await music(ctx, "./audio/reg.mp3")
+
 
 @bot.command(pass_context=True)
 async def theway(ctx):
@@ -194,6 +198,7 @@ async def woasned(ctx):
 
 
 @bot.command(pass_context=True)
+@commands.has_role('Crusader')
 async def suh(ctx):
     await music(ctx, "./audio/suh.mp3")
 
