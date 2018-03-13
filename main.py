@@ -183,6 +183,16 @@ async def noway(ctx):
 
 
 @bot.command(pass_context=True)
+async def bmrune(ctx):
+    await music(ctx, "./audio/beast_rune.mp3")
+
+
+@bot.command(pass_context=True)
+async def viper(ctx):
+    await music(ctx, "./audio/holyshitviper.mp3")
+
+
+@bot.command(pass_context=True)
 async def skybag(ctx):
     await music(ctx, "./audio/sky_inthebag.mp3")
 
