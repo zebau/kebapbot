@@ -4,12 +4,15 @@ import discord
 import asyncio
 import os
 import logging
+import MySQLdb
 from bs4 import BeautifulSoup
 from exp import *
 from os import listdir
 from os.path import isfile, join
 from mutagen.mp3 import MP3
 from discord.ext import commands
+
+from music import Music
 
 if not discord.opus.is_loaded():
     discord.opus.load_opus('opus')
@@ -24,6 +27,18 @@ handler = logging.FileHandler(filename='output.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
+###
+#  db = MySQLdb.connect(host='localhost',
+#                    user='root',
+#                     db='kebapstats')
+#
+# cursor = db.cursor()
+#
+# cursor.execute("SELECT * FROM kebapstats")
+#
+# db.close()
+###
+
 
 async def music(ctx, path):
     try:
@@ -31,7 +46,6 @@ async def music(ctx, path):
         if channel is None:
             await bot.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
             return False
-
         voice = await bot.join_voice_channel(channel)
         player = voice.create_ffmpeg_player(path)
         player.start()
@@ -188,8 +202,18 @@ async def bmrune(ctx):
 
 
 @bot.command(pass_context=True)
+async def bristl(ctx):
+    await music(ctx, "./audio/bristl.mp3")
+
+
+@bot.command(pass_context=True)
 async def viper(ctx):
     await music(ctx, "./audio/holyshitviper.mp3")
+
+
+@bot.command(pass_context=True)
+async def spit(ctx):
+    await music(ctx, "./audio/spit.mp3")
 
 
 @bot.command(pass_context=True)
@@ -335,13 +359,12 @@ async def on_ready():
     print("Name: {}".format(bot.user.name))
     print("ID: {}".format(bot.user.id))
     await bot.change_presence(game=discord.Game(name='with Kebaps'))
-    await bot.send_message(discord.Object(id='418535433144893440'),
-                              "Hello my fellow <:kebap:418534975831277589> eaters")
-
 
 # TODO make error logs work
 # TODO send private messages in my discord server
 
+
+bot.add_cog(Music(bot))
 bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DXiISA.W0cNVm0V4Hv4UgbwFStMqejIZKk")
 
 # add kebap stats
