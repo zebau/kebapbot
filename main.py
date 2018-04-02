@@ -365,6 +365,6 @@ async def on_ready():
 
 
 bot.add_cog(Music(bot))
-bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DZ05sQ.q-y4lFuRg0oiwyptIdwPJLTDm5A")
+bot.run(os.environ.get('BOT_TOKEN'))
 
 # add kebap stats
