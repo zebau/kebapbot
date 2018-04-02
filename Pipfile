@@ -9,6 +9,12 @@ discord = "*"
 asyncio = "*"
 mutagen = "*"
 opuslib = "*"
+ffmpeg-python = "*"
+youtube-dl = "*"
+"html5lib" = "*"
+future = "*"
+eight = "*"
+"discord.py" = "*"
 
 [dev-packages]
 

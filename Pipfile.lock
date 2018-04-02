@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2d1c9a414b53866692fbaca0918cbcf1a9b4f86c99e30e41ab3aee35c4b5a4f4"
+            "sha256": "b7ae35a26a85c196e66de66e9c5925dee701ccb0077ebb385e4b1ca4867d169e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -74,7 +74,38 @@
             "hashes": [
                 "sha256:17fb8814100fbaf7a79468baa432184db6cef3bbea4ad194fe297c7407d50108"
             ],
+            "index": "pypi",
             "version": "==0.16.12"
+        },
+        "eight": {
+            "hashes": [
+                "sha256:b3ceecbfeb58fe68f726a69ac4225bbff554f5436c274646b75c63b039626c9e",
+                "sha256:eebadb79193c9a3ed95a74f59462267f05ca41c23a804f9f0dd80e597c9a9f8e"
+            ],
+            "index": "pypi",
+            "version": "==0.4.2"
+        },
+        "ffmpeg-python": {
+            "hashes": [
+                "sha256:c4d1c075c3b25d7555001227eeda6c1a1ece2bfb893f54b98150b4bab8916e1b"
+            ],
+            "index": "pypi",
+            "version": "==0.1.10"
+        },
+        "future": {
+            "hashes": [
+                "sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb"
+            ],
+            "index": "pypi",
+            "version": "==0.16.0"
+        },
+        "html5lib": {
+            "hashes": [
+                "sha256:20b159aa3badc9d5ee8f5c647e5efd02ed2a66ab8d354930bd9ff139fc1dc0a3",
+                "sha256:66cb0dcfdbbc4f9c3ba1a63fdb511ffdbd4f513b2b6d81b80cd26ce6b3fb3736"
+            ],
+            "index": "pypi",
+            "version": "==1.0.1"
         },
         "multidict": {
             "hashes": [
@@ -117,6 +148,20 @@
             "index": "pypi",
             "version": "==3.0.1"
         },
+        "six": {
+            "hashes": [
+                "sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9",
+                "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"
+            ],
+            "version": "==1.11.0"
+        },
+        "webencodings": {
+            "hashes": [
+                "sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78",
+                "sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
+            ],
+            "version": "==0.5.1"
+        },
         "websockets": {
             "hashes": [
                 "sha256:09dfec40e9b73e8808c39ecdbc1733e33915a2b26b90c54566afc0af546a9ec3",
@@ -141,6 +186,14 @@
                 "sha256:e9c1cdbb591432c59d0b5ca64fd30b6d517024767f152fc169563b26e7bcc9da"
             ],
             "version": "==3.4"
+        },
+        "youtube-dl": {
+            "hashes": [
+                "sha256:ddbe6ea150746d58af3b0177f6623953a7158e0ae3f1c1c38860e2e5a8e2d52b",
+                "sha256:f10e4fcdd7d4093aef488d4afb5c88b6812dbbc4e47d42459573e83cd2023f00"
+            ],
+            "index": "pypi",
+            "version": "==2018.3.26.1"
         }
     },
     "develop": {}
