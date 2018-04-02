@@ -4,7 +4,6 @@ import discord
 import asyncio
 import os
 import logging
-import MySQLdb
 from bs4 import BeautifulSoup
 from exp import *
 from os import listdir
