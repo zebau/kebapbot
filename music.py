@@ -12,7 +12,7 @@ from discord.ext import commands
 #     discord.opus.load_opus('opus')
 
 # config vars
-token = os.environ['BOT_TOKEN']
+token = os.environ.get('BOT_TOKEN')
 
 
 class VoiceEntry:

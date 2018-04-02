@@ -21,7 +21,7 @@ bot_prefix = "?"
 bot = commands.Bot(command_prefix=bot_prefix)
 
 # config vars
-token = os.environ['BOT_TOKEN']
+token = os.environ.get('BOT_TOKEN')
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -367,6 +367,6 @@ async def on_ready():
 
 
 bot.add_cog(Music(bot))
-bot.run(os.environ.get(token))
+bot.run(token)
 
 # add kebap stats
