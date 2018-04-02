@@ -20,6 +20,9 @@ if not discord.opus.is_loaded():
 bot_prefix = "?"
 bot = commands.Bot(command_prefix=bot_prefix)
 
+# config vars
+token = os.environ['BOT_TOKEN']
+
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='output.log', encoding='utf-8', mode='w')
@@ -364,6 +367,6 @@ async def on_ready():
 
 
 bot.add_cog(Music(bot))
-bot.run(os.environ.get('BOT_TOKEN'))
+bot.run(os.environ.get(token))
 
 # add kebap stats

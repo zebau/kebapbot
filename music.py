@@ -11,6 +11,9 @@ if not discord.opus.is_loaded():
     # note that on windows this DLL is automatically provided for you
     discord.opus.load_opus('opus')
 
+# config vars
+token = os.environ['BOT_TOKEN']
+
 
 class VoiceEntry:
     def __init__(self, message, player):
@@ -220,4 +223,4 @@ bot.add_cog(Music(bot))
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
 
-bot.run(os.environ.get('BOT_TOKEN'))
+bot.run(os.environ.get(token))
