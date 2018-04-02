@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2099f20205431f92dcd71d59c816598192df0668516d17b070b412c5f097a73c"
+            "sha256": "2d1c9a414b53866692fbaca0918cbcf1a9b4f86c99e30e41ab3aee35c4b5a4f4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -109,6 +109,13 @@
             ],
             "index": "pypi",
             "version": "==1.40.0"
+        },
+        "opuslib": {
+            "hashes": [
+                "sha256:2cb045e5b03e7fc50dfefe431e3404dddddbd8f5961c10c51e32dfb69a044c97"
+            ],
+            "index": "pypi",
+            "version": "==3.0.1"
         },
         "websockets": {
             "hashes": [

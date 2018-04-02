@@ -8,6 +8,7 @@ name = "pypi"
 discord = "*"
 asyncio = "*"
 mutagen = "*"
+opuslib = "*"
 
 [dev-packages]
 
