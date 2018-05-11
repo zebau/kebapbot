@@ -11,17 +11,16 @@ from os.path import isfile, join
 from mutagen.mp3 import MP3
 from discord.ext import commands
 
-from music import Music
+
 
 # if not discord.opus.is_loaded():
 #     discord.opus.load_opus('opus')
-
+from music import Music
 
 bot_prefix = "?"
 bot = commands.Bot(command_prefix=bot_prefix)
 
 # config vars
-token = os.environ.get('BOT_TOKEN')
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -101,12 +100,12 @@ async def inthebags(ctx, hero1=None, hero2=None):
             await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n" + inthebagexp)
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def inthebag(ctx, hero1=None, hero2=None):
     await inthebags(ctx, hero1, hero2)
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def clear(ctx, number):
     messages = []
     number = int(number)
@@ -115,13 +114,13 @@ async def clear(ctx, number):
     await bot.delete_messages(messages)
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def sounds(ctx):
     channel = ctx.message.channel
     await bot.send_message(channel, soundsexp)
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def oida(ctx, member: discord.Member = None):
     if member is None:
         member = ctx.message.author
@@ -131,12 +130,12 @@ async def oida(ctx, member: discord.Member = None):
         await bot.send_message(member, "fuck")
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def volume(ctx, value: int):
         pass
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def yt(ctx, youtube_url):
     channel = ctx.message.author.voice.voice_channel
     # http://discordpy.readthedocs.io/en/latest/api.html#discord.Member.voice
@@ -150,7 +149,7 @@ async def yt(ctx, youtube_url):
         return 'URL_ERROR'
 
 
-@bot.command(ass_context=True)
+@commands.command(ass_context=True)
 async def leave():
     try:
         await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
@@ -159,7 +158,7 @@ async def leave():
 
 
 # TODO finish ?kebap
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def kebap(ctx):
     channel = ctx.message.channel
     message = ctx.message
@@ -183,147 +182,6 @@ async def kebap(ctx):
             await bot.send_message(channel, "Don post amoi a bild von deim Kebap in #kebaptalk")
 
 
-@bot.command(pass_context=True)
-async def reg(ctx):
-    await music(ctx, "./audio/reg.mp3")
-
-
-@bot.command(pass_context=True)
-async def theway(ctx):
-    await music(ctx, "./audio/the_way.mp3")
-
-
-@bot.command(pass_context=True)
-async def noway(ctx):
-    await music(ctx, "./audio/noway.mp3")
-
-
-@bot.command(pass_context=True)
-async def bmrune(ctx):
-    await music(ctx, "./audio/beast_rune.mp3")
-
-
-@bot.command(pass_context=True)
-async def bristl(ctx):
-    await music(ctx, "./audio/bristl.mp3")
-
-
-@bot.command(pass_context=True)
-async def viper(ctx):
-    await music(ctx, "./audio/holyshitviper.mp3")
-
-
-@bot.command(pass_context=True)
-async def spit(ctx):
-    await music(ctx, "./audio/spit.mp3")
-
-
-@bot.command(pass_context=True)
-async def skybag(ctx):
-    await music(ctx, "./audio/sky_inthebag.mp3")
-
-
-@bot.command(pass_context=True)
-async def klassisch(ctx):
-    await music(ctx, "./audio/klassischer_lich.mp3")
-
-
-@bot.command(pass_context=True)
-async def woasned(ctx):
-    await music(ctx, "./audio/i_woas_ned_wos_es_hobts.mp3")
-
-
-@bot.command(pass_context=True)
-@commands.has_role('Crusader')
-async def suh(ctx):
-    await music(ctx, "./audio/suh.mp3")
-
-
-@bot.command(pass_context=True)
-async def dead(ctx):
-    await music(ctx, "./audio/dead_as_hell.mp3")
-
-
-@bot.command(pass_context=True)
-async def ezmmr(ctx):
-    await music(ctx, "./audio/ez_mmr_with_jogoe_gaming.mp3")
-
-
-@bot.command(pass_context=True)
-async def spritzwein(ctx):
-    await music(ctx, "./audio/man_bringe_spritzwein.mp3")
-
-
-@bot.command(pass_context=True)
-async def dmg(ctx):
-    await music(ctx, "./audio/heizakara_i_ho_dmg.mp3")
-
-
-@bot.command(pass_context=True)
-async def killingspree(ctx):
-    await music(ctx, "./audio/lich_killing_spree.mp3")
-
-
-@bot.command(pass_context=True)
-async def aushem(ctx):
-    await music(ctx, "./audio/weng_wos_wiad_mi_den_dea_hund_imma_aushem.mp3")
-
-
-@bot.command(pass_context=True)
-async def rune(ctx):
-    await music(ctx, "./audio/fidi_rune.mp3")
-
-
-@bot.command(pass_context=True)
-async def chance(ctx):
-    await music(ctx, "./audio/keine_chance.mp3")
-
-
-@bot.command(pass_context=True)
-async def danke(ctx):
-    await music(ctx, "./audio/lernvideo_danke.mp3")
-
-
-@bot.command(pass_context=True)
-async def eingabetaste(ctx):
-    await music(ctx, "./audio/lernvideo_eingabetaste.mp3")
-
-
-@bot.command(pass_context=True)
-async def oah(ctx):
-    await music(ctx, "./audio/lich_oah.mp3")
-
-
-@bot.command(pass_context=True)
-async def speim(ctx):
-    await music(ctx, "./audio/speim.mp3")
-
-
-@bot.command(pass_context=True)
-async def onfire(ctx):
-    await music(ctx, "./audio/jogo_on_fire.mp3")
-
-
-@bot.command(pass_context=True)
-async def dejavu(ctx):
-    await music(ctx, "./audio/dejavu.mp3")
-
-
-@bot.command(pass_context=True)
-async def running(ctx):
-    await music(ctx, "./audio/90s.mp3")
-
-
-@bot.command(pass_context=True)
-async def power(ctx):
-    await music(ctx, "./audio/power.mp3")
-
-
-@bot.command(pass_context=True)
-async def schub(ctx):
-    await music(ctx, "./audio/schub.mp3")
-
-
 # @bot.event
 # async def on_message(message):
 #    await bot.process_commands(message)
@@ -331,7 +189,7 @@ async def schub(ctx):
 #       await bot.add_reaction(message, "kebap:418534975831277589")
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def dotanow(self):
     url = "https://steamdb.info/app/570/graphs/"
     async with aiohttp.get(url) as response:
@@ -343,7 +201,7 @@ async def dotanow(self):
         await self.bot.say("Couldn't load amount of players. No one is playing this game anymore or there's an error.")
 
 
-@bot.command(pass_context=True)
+@commands.command(pass_context=True)
 async def csgonow(self):
     url = "https://steamdb.info/app/730/graphs/"
     async with aiohttp.get(url) as response:
@@ -367,6 +225,6 @@ async def on_ready():
 
 
 bot.add_cog(Music(bot))
-bot.run(token)
+bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DarPIA.E3tl5PraWWbTtfVGaZWSf2P5Q2o")
 
 # add kebap stats

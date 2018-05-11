@@ -1,6 +1,10 @@
 import asyncio
-import discord
+import random
 import os
+from os import listdir
+from os.path import isfile, join
+import discord
+from mutagen.mp3 import MP3
 from discord.ext import commands
 
 # if not discord.opus.is_loaded():
@@ -12,7 +16,65 @@ from discord.ext import commands
 #     discord.opus.load_opus('opus')
 
 # config vars
-token = os.environ.get('BOT_TOKEN')
+
+
+async def music(ctx, path):
+    try:
+        channel = ctx.message.author.voice_channel
+        if channel is None:
+            await bot.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
+            return False
+        voice = await bot.join_voice_channel(channel)
+        player = voice.create_ffmpeg_player(path)
+        player.start()
+        counter = 0
+        duration = MP3(path).info.length
+        while not counter >= duration:
+            await asyncio.sleep(1)
+            counter = counter + 1
+        server = ctx.message.server
+        await bot.voice_client_in(server).disconnect()
+    except Exception as exc:
+        await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+
+
+async def inthebags(ctx, hero1=None, hero2=None):
+    if hero1 is None:
+        folderpath = "./audio/inthebags"
+        files = [f for f in listdir(folderpath) if isfile(join(folderpath, f))]
+
+        onlymp3files = []
+        for f in files:
+            if f[-3:] == "mp3":
+                onlymp3files.append(f)
+
+        randomfile = random.randint(0, len(onlymp3files)-1)
+        path = folderpath + "/" + onlymp3files[randomfile]
+
+        channel = ctx.message.channel
+        await bot.send_message(channel, "Playing " + onlymp3files[randomfile][:-4] + "'s in the Bag Sound")
+
+        await music(ctx, path)
+    elif hero2 is None:
+        path = "./audio/inthebags/" + hero1 + ".mp3"
+        if os.path.exists(path):
+            channel = ctx.message.channel
+            await bot.send_message(channel, "Playing " + hero1 + "'s in the Bag Sound")
+
+            await music(ctx, path)
+        else:
+            channel = ctx.message.channel
+            await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n" + inthebagexp)
+    else:
+        path = "./audio/inthebags/" + hero1 + " " + hero2 + ".mp3"
+        if os.path.exists(path):
+            channel = ctx.message.channel
+            await bot.send_message(channel, "Playing " + hero1 + " " + hero2 + "'s in the Bag Sound")
+
+            await music(ctx, path)
+        else:
+            channel = ctx.message.channel
+            await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n" + inthebagexp)
 
 
 class VoiceEntry:
@@ -168,7 +230,8 @@ class Music:
             player.resume()
 
     @commands.command(pass_context=True, no_pm=True)
-    async def stop(self, ctx):
+    @commands.has_role('Admin')
+    async def leave(self, ctx):
         server = ctx.message.server
         state = self.get_voice_state(server)
 
@@ -215,7 +278,125 @@ class Music:
             await self.bot.say('Now playing {} [skips: {}/3]'.format(state.current, skip_count))
 
 
-bot = commands.Bot(command_prefix=commands.when_mentioned_or('?'), description='A playlist example for discord.py')
+    @commands.command(pass_context=True)
+    async def reg(self, ctx):
+        await music(ctx, "./audio/reg.mp3")
+
+    @commands.command(pass_context=True)
+    async def theway(self, ctx):
+        await music(ctx, "./audio/the_way.mp3")
+
+    @commands.command(pass_context=True)
+    async def noway(self, ctx):
+        await music(ctx, "./audio/noway.mp3")
+
+    @commands.command(pass_context=True)
+    async def bmrune(self, ctx):
+        await music(ctx, "./audio/beast_rune.mp3")
+
+    @commands.command(pass_context=True)
+    async def viper(self, ctx):
+        await music(ctx, "./audio/holyshitviper.mp3")
+
+    @commands.command(pass_context=True)
+    async def spit(self, ctx):
+        await music(ctx, "./audio/spit.mp3")
+
+    @commands.command(pass_context=True)
+    async def skybag(self, ctx):
+        await music(ctx, "./audio/sky_inthebag.mp3")
+
+    @commands.command(pass_context=True)
+    async def klassisch(self, ctx):
+        await music(ctx, "./audio/klassischer_lich.mp3")
+
+    @commands.command(pass_context=True)
+    async def woasned(self, ctx):
+        await music(ctx, "./audio/i_woas_ned_wos_es_hobts.mp3")
+
+    @commands.command(pass_context=True)
+    @commands.has_role('Crusader')
+    async def suh(self, ctx):
+        await music(ctx, "./audio/suh.mp3")
+
+    @commands.command(pass_context=True)
+    async def dead(self, ctx):
+        await music(ctx, "./audio/dead_as_hell.mp3")
+
+    @commands.command(pass_context=True)
+    async def ezmmr(self, ctx):
+        await music(ctx, "./audio/ez_mmr_with_jogoe_gaming.mp3")
+
+    @commands.command(pass_context=True)
+    async def spritzwein(self, ctx):
+        await music(ctx, "./audio/man_bringe_spritzwein.mp3")
+
+    @commands.command(pass_context=True)
+    async def dmg(self, ctx):
+        await music(ctx, "./audio/heizakara_i_ho_dmg.mp3")
+
+    @commands.command(pass_context=True)
+    async def killingspree(self, ctx):
+        await music(ctx, "./audio/lich_killing_spree.mp3")
+
+    @commands.command(pass_context=True)
+    async def aushem(self, ctx):
+        await music(ctx, "./audio/weng_wos_wiad_mi_den_dea_hund_imma_aushem.mp3")
+
+    @commands.command(pass_context=True)
+    async def rune(self, ctx):
+        await music(ctx, "./audio/fidi_rune.mp3")
+
+    @commands.command(pass_context=True)
+    async def chance(self, ctx):
+        await music(ctx, "./audio/keine_chance.mp3")
+
+    @commands.command(pass_context=True)
+    async def danke(self, ctx):
+        await music(ctx, "./audio/lernvideo_danke.mp3")
+
+    @commands.command(pass_context=True)
+    async def eingabetaste(self, ctx):
+        await music(ctx, "./audio/lernvideo_eingabetaste.mp3")
+
+    @commands.command(pass_context=True)
+    async def oah(self, ctx):
+        await music(ctx, "./audio/lich_oah.mp3")
+
+    @commands.command(pass_context=True)
+    async def onfire(self, ctx):
+        await music(ctx, "./audio/jogo_on_fire.mp3")
+
+    @commands.command(pass_context=True)
+    async def dejavu(self, ctx):
+        await music(ctx, "./audio/dejavu.mp3")
+
+    @commands.command(pass_context=True)
+    async def running(self, ctx):
+        await music(ctx, "./audio/90s.mp3")
+
+    @commands.command(pass_context=True)
+    async def power(self, ctx):
+        await music(ctx, "./audio/power.mp3")
+
+    @commands.command(pass_context=True)
+    async def schub(self, ctx):
+        await music(ctx, "./audio/schub.mp3")
+
+    @commands.command(pass_context=True)
+    async def speim(self, ctx):
+        await music(ctx, "./audio/speim.mp3")
+
+    @commands.command(pass_context=True)
+    async def toto(self, ctx):
+        await music(ctx, "./audio/toto.mp3")
+
+    @commands.command(pass_context=True)
+    async def inthebag(self, ctx, hero1=None, hero2=None):
+        await inthebags(ctx, hero1, hero2)
+
+
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('?'), description='sounds bois')
 bot.add_cog(Music(bot))
 
 
@@ -223,4 +404,4 @@ bot.add_cog(Music(bot))
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
 
-bot.run(os.environ.get(token))
+bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DarPIA.E3tl5PraWWbTtfVGaZWSf2P5Q2o")
