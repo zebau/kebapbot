@@ -1,11 +1,15 @@
-import asyncio
 import random
+import aiohttp
+import discord
+import asyncio
 import os
+from bs4 import BeautifulSoup
+from exp import *
 from os import listdir
 from os.path import isfile, join
-import discord
 from mutagen.mp3 import MP3
 from discord.ext import commands
+
 
 # if not discord.opus.is_loaded():
     # the 'opus' library here is opus.dll on windows
@@ -245,6 +249,11 @@ class Music:
         except:
             pass
 
+        try:
+            await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
+        except:
+            pass
+
     @commands.command(pass_context=True, no_pm=True)
     async def skip(self, ctx):
         state = self.get_voice_state(ctx.message.server)
@@ -395,11 +404,44 @@ class Music:
         await inthebags(ctx, hero1, hero2)
 
     @commands.command(pass_context=True)
+<<<<<<< HEAD
     async def aleave(self):
         try:
             await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
         except Exception as exc:
             await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+=======
+    async def dotanow(self):
+        url = "https://steamdb.info/app/570/graphs/"
+        async with aiohttp.get(url) as response:
+            soupObject = BeautifulSoup(await response.text(), "html.parser")
+        try:
+            online = soupObject.find(class_='steamspy-stats').find('li').find('strong').get_text()
+            await self.bot.say(online + ' dudes spün grod dotes')
+        except:
+            await self.bot.say(
+                "Couldn't load amount of players. No one is playing this game anymore or there's an error.")
+
+    @commands.command(pass_context=True)
+    async def csgonow(self):
+        url = "https://steamdb.info/app/730/graphs/"
+        async with aiohttp.get(url) as response:
+            soupObject = BeautifulSoup(await response.text(), "html.parser")
+        try:
+            online = soupObject.find(class_='steamspy-stats').find('li').find('strong').get_text()
+            await self.bot.say(online + ' dudes dreschn grod russn')
+        except:
+            await self.bot.say(
+                "Couldn't load amount of players. No one is playing this game anymore or there's an error.")
+
+    @commands.command(pass_context=True)
+    async def clear(self, ctx, number):
+        messages = []
+        number = int(number)
+        async for x in bot.logs_from(ctx.message.channel, limit=number):
+            messages.append(x)
+        await bot.delete_messages(messages)
+>>>>>>> 4e823d3b7779f5ea745918afedb18ee4487a867e
 
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('?'), description='sounds bois')
@@ -408,6 +450,9 @@ bot.add_cog(Music(bot))
 
 @bot.event
 async def on_ready():
-    print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
+    print("Bot Online!")
+    print("Name: {}".format(bot.user.name))
+    print("ID: {}".format(bot.user.id))
+    await bot.change_presence(game=discord.Game(name='with Kebaps'))
 
 bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DdehxA.GWyI9XgJM8Tm5puCkviSpfazQhI")
