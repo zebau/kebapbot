@@ -13,8 +13,8 @@ from discord.ext import commands
 
 
 
-# if not discord.opus.is_loaded():
-#     discord.opus.load_opus('opus')
+if not discord.opus.is_loaded():
+    discord.opus.load_opus('opus')
 from music import Music
 
 bot_prefix = "?"
@@ -149,8 +149,8 @@ async def yt(ctx, youtube_url):
         return 'URL_ERROR'
 
 
-@commands.command(ass_context=True)
-async def leave():
+@commands.command(pass_context=True)
+async def aleave():
     try:
         await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
     except Exception as exc:
@@ -225,6 +225,6 @@ async def on_ready():
 
 
 bot.add_cog(Music(bot))
-bot.run("")
+bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DdehxA.GWyI9XgJM8Tm5puCkviSpfazQhI")
 
 # add kebap stats

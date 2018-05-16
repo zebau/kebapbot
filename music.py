@@ -17,7 +17,6 @@ from discord.ext import commands
 
 # config vars
 
-
 async def music(ctx, path):
     try:
         channel = ctx.message.author.voice_channel
@@ -395,6 +394,13 @@ class Music:
     async def inthebag(self, ctx, hero1=None, hero2=None):
         await inthebags(ctx, hero1, hero2)
 
+    @commands.command(pass_context=True)
+    async def aleave(self):
+        try:
+            await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
+        except Exception as exc:
+            await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
+
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('?'), description='sounds bois')
 bot.add_cog(Music(bot))
@@ -404,4 +410,4 @@ bot.add_cog(Music(bot))
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
 
-bot.run("")
+bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DdehxA.GWyI9XgJM8Tm5puCkviSpfazQhI")
