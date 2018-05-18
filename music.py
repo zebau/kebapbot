@@ -25,6 +25,7 @@ from discord.ext import commands
 async def music(ctx, path):
     try:
         channel = ctx.message.author.voice_channel
+        server = ctx.message.server
         if channel is None:
             await bot.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
             return False
@@ -36,7 +37,6 @@ async def music(ctx, path):
         while not counter >= duration:
             await asyncio.sleep(1)
             counter = counter + 1
-        server = ctx.message.server
         await bot.voice_client_in(server).disconnect()
     except Exception as exc:
         await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
@@ -248,12 +248,7 @@ class Music:
             del self.voice_states[server.id]
             await state.voice.disconnect()
         except:
-            pass
-
-        try:
             await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
-        except:
-            pass
 
     @commands.command(pass_context=True, no_pm=True)
     async def skip(self, ctx):
