@@ -20,7 +20,9 @@ from discord.ext import commands
 #     discord.opus.load_opus('opus')
 
 # config vars
-
+file = open('TOKEN.txt', 'r')
+BOT_TOKEN = file.read().strip()
+file.close()
 
 async def music(ctx, path):
     try:
@@ -443,4 +445,4 @@ async def on_ready():
     print("ID: {}".format(bot.user.id))
     await bot.change_presence(game=discord.Game(name='with Kebaps'))
 
-bot.run("")
+bot.run(BOT_TOKEN)
