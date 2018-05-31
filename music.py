@@ -36,7 +36,11 @@ async def music(ctx, path):
             await asyncio.sleep(1)
             counter = counter + 1
         server = ctx.message.server
-        await bot.voice_client_in(server).disconnect()
+        if bot.voice_client_in(server):
+            await bot.voice_client_in(server).disconnect()
+        else:
+            pass
+
     except Exception as exc:
         await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
 
@@ -233,7 +237,6 @@ class Music:
             player.resume()
 
     @commands.command(pass_context=True, no_pm=True)
-    @commands.has_role('Admin')
     async def leave(self, ctx):
         server = ctx.message.server
         state = self.get_voice_state(server)
@@ -243,16 +246,12 @@ class Music:
             player.stop()
 
         try:
-            state.audio_player.cancel()
             del self.voice_states[server.id]
+            state.audio_player.cancel()
             await state.voice.disconnect()
+            await bot.voice_client_in(server).disconnect()
         except:
-            pass
-
-        try:
-            await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
-        except:
-            pass
+            await bot.voice_client_in(server).disconnect()
 
     @commands.command(pass_context=True, no_pm=True)
     async def skip(self, ctx):
@@ -404,13 +403,12 @@ class Music:
         await inthebags(ctx, hero1, hero2)
 
     @commands.command(pass_context=True)
-<<<<<<< HEAD
     async def aleave(self):
         try:
             await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
         except Exception as exc:
             await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
-=======
+    @commands.command(pass_context=True)
     async def dotanow(self):
         url = "https://steamdb.info/app/570/graphs/"
         async with aiohttp.get(url) as response:
@@ -441,8 +439,6 @@ class Music:
         async for x in bot.logs_from(ctx.message.channel, limit=number):
             messages.append(x)
         await bot.delete_messages(messages)
->>>>>>> 4e823d3b7779f5ea745918afedb18ee4487a867e
-
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('?'), description='sounds bois')
 bot.add_cog(Music(bot))
