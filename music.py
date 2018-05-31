@@ -20,10 +20,17 @@ from discord.ext import commands
 #     discord.opus.load_opus('opus')
 
 # config vars
+<<<<<<< HEAD
+=======
+file = open('TOKEN.txt', 'r')
+BOT_TOKEN = file.read().strip()
+file.close()
+>>>>>>> 7f1af68093c42292040d2beccdca1e590dc4b42e
 
 async def music(ctx, path):
     try:
         channel = ctx.message.author.voice_channel
+        server = ctx.message.server
         if channel is None:
             await bot.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
             return False
@@ -35,12 +42,16 @@ async def music(ctx, path):
         while not counter >= duration:
             await asyncio.sleep(1)
             counter = counter + 1
+<<<<<<< HEAD
         server = ctx.message.server
         if bot.voice_client_in(server):
             await bot.voice_client_in(server).disconnect()
         else:
             pass
 
+=======
+        await bot.voice_client_in(server).disconnect()
+>>>>>>> 7f1af68093c42292040d2beccdca1e590dc4b42e
     except Exception as exc:
         await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
 
@@ -251,7 +262,11 @@ class Music:
             await state.voice.disconnect()
             await bot.voice_client_in(server).disconnect()
         except:
+<<<<<<< HEAD
             await bot.voice_client_in(server).disconnect()
+=======
+            await bot.voice_client_in(discord.Object(id="418525123176300544")).disconnect()
+>>>>>>> 7f1af68093c42292040d2beccdca1e590dc4b42e
 
     @commands.command(pass_context=True, no_pm=True)
     async def skip(self, ctx):
@@ -451,4 +466,8 @@ async def on_ready():
     print("ID: {}".format(bot.user.id))
     await bot.change_presence(game=discord.Game(name='with Kebaps'))
 
+<<<<<<< HEAD
 bot.run("NDE4NDc2NjcwMTU3MzI0Mjg4.DdehxA.GWyI9XgJM8Tm5puCkviSpfazQhI")
+=======
+bot.run(BOT_TOKEN)
+>>>>>>> 7f1af68093c42292040d2beccdca1e590dc4b42e
