@@ -45,7 +45,6 @@ async def music(ctx, path):
         else:
             pass
 
-        await bot.voice_client_in(server).disconnect()
     except Exception as exc:
         await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
 
