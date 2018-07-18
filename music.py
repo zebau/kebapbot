@@ -404,6 +404,10 @@ class Music:
         await music(ctx, "./audio/toto.mp3")
 
     @commands.command(pass_context=True)
+    async def berni(self, ctx):
+        await music(ctx, "./audio/berni.mp3")
+
+    @commands.command(pass_context=True)
     async def inthebag(self, ctx, hero1=None, hero2=None):
         await inthebags(ctx, hero1, hero2)
 
