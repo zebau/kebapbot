@@ -18,7 +18,6 @@ from discord.ext import commands
     # note that on windows this DLL is automatically provided for you
 #     discord.opus.load_opus('opus')
 
-# config vars
 file = open('TOKEN.txt', 'r')
 BOT_TOKEN = file.read().strip()
 file.close()
