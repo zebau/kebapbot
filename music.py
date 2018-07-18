@@ -3,20 +3,21 @@ import aiohttp
 import discord
 import asyncio
 import os
+import logging
 from bs4 import BeautifulSoup
 from os import listdir
 from os.path import isfile, join
 from mutagen.mp3 import MP3
 from discord.ext import commands
 
+if not discord.opus.is_loaded():
+    discord.opus.load_opus('opus')
 
-# if not discord.opus.is_loaded():
-    # the 'opus' library here is opus.dll on windows
-    # or libopus.so on linux in the current directory
-    # you should replace this with the location the
-    # opus library is located in and with the proper filename.
-    # note that on windows this DLL is automatically provided for you
-#     discord.opus.load_opus('opus')
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='output.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 file = open('TOKEN.txt', 'r')
 BOT_TOKEN = file.read().strip()
@@ -73,7 +74,7 @@ async def inthebags(ctx, hero1=None, hero2=None):
             await music(ctx, path)
         else:
             channel = ctx.message.channel
-            await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n" + inthebagexp)
+            await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n")
     else:
         path = "./audio/inthebags/" + hero1 + " " + hero2 + ".mp3"
         if os.path.exists(path):
@@ -83,7 +84,7 @@ async def inthebags(ctx, hero1=None, hero2=None):
             await music(ctx, path)
         else:
             channel = ctx.message.channel
-            await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n" + inthebagexp)
+            await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n")
 
 
 class VoiceEntry:
