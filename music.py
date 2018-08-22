@@ -27,22 +27,36 @@ file.close()
 async def music(ctx, path):
     try:
         channel = ctx.message.author.voice_channel
+        server = ctx.message.server
         if channel is None:
             await bot.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
             return False
-        voice = await bot.join_voice_channel(channel)
-        player = voice.create_ffmpeg_player(path)
-        player.start()
-        counter = 0
-        duration = MP3(path).info.length
-        while not counter >= duration:
-            await asyncio.sleep(1)
-            counter = counter + 1
-        server = ctx.message.server
-        if bot.voice_client_in(server):
-            await bot.voice_client_in(server).disconnect()
-        else:
-            pass
+        if bot.is_voice_connected(server) is False:
+            voice = await bot.join_voice_channel(channel)
+            player = voice.create_ffmpeg_player(path)
+            player.start()
+            counter = 0
+            duration = MP3(path).info.length
+            while not counter >= duration:
+                await asyncio.sleep(1)
+                counter = counter + 1
+            if bot.voice_client_in(server):
+                await bot.voice_client_in(server).disconnect()
+            else:
+                pass
+        elif bot.is_voice_connected(server) is True:
+            voice = bot.voice_client_in(server)
+            player = voice.create_ffmpeg_player(path)
+            player.start()
+            counter = 0
+            duration = MP3(path).info.length
+            while not counter >= duration:
+                await asyncio.sleep(1)
+                counter = counter + 1
+            if bot.voice_client_in(server):
+                await bot.voice_client_in(server).disconnect()
+            else:
+                pass
 
     except Exception as exc:
         await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
@@ -252,7 +266,6 @@ class Music:
             del self.voice_states[server.id]
             state.audio_player.cancel()
             await state.voice.disconnect()
-            await bot.voice_client_in(server).disconnect()
         except:
             await bot.voice_client_in(server).disconnect()
 
