@@ -414,6 +414,10 @@ class Music:
         await music(ctx, "./audio/toto.mp3")
 
     @commands.command(pass_context=True)
+    async def impossible(self, ctx):
+        await music(ctx, "./audio/jogo_impossible.mp3")
+
+    @commands.command(pass_context=True)
     async def berni(self, ctx):
         await music(ctx, "./audio/berni.mp3")
 
