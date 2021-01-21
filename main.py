@@ -25,89 +25,10 @@ handler = logging.FileHandler(filename='output.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-file = open('TOKEN.txt', 'r')
-BOT_TOKEN = file.read().strip()
-file.close()
+with open('TOKEN.txt', 'r') as file:
+    BOT_TOKEN = file.read().strip()
 
 
-# async def music(ctx, path):
-#     try:
-#         channel = ctx.message.author.voice.channel
-#         server = ctx.message.server
-#         if channel is None:
-#             await bot.send_message(ctx.message.channel, "Schau dasd in an Voice Channel kimst!")
-#             return False
-#         if bot.is_voice_connected(server) is False:
-#             voice = await bot.join_voice_channel(channel)
-#             player = voice.create_ffmpeg_player(path)
-#             player.start()
-#             counter = 0
-#             duration = MP3(path).info.length
-#             while not counter >= duration:
-#                 await asyncio.sleep(1)
-#                 counter = counter + 1
-#             if bot.voice_client_in(server):
-#                 await bot.voice_client_in(server).disconnect()
-#             else:
-#                 pass
-#         elif bot.is_voice_connected(server) is True:
-#             voice = bot.voice_client_in(server)
-#             player = voice.create_ffmpeg_player(path)
-#             player.start()
-#             counter = 0
-#             duration = MP3(path).info.length
-#             while not counter >= duration:
-#                 await asyncio.sleep(1)
-#                 counter = counter + 1
-#             if bot.voice_client_in(server):
-#                 await bot.voice_client_in(server).disconnect()
-#             else:
-#                 pass
-#
-#     except Exception as exc:
-#         await bot.send_message(discord.Object(id='418814283036491776'), "Error: ```{ttt}```".format(ttt=exc))
-#
-#
-# async def inthebags(ctx, hero1=None, hero2=None):
-#     if hero1 is None:
-#         folderpath = "./audio/inthebags"
-#         files = [f for f in listdir(folderpath) if isfile(join(folderpath, f))]
-#
-#         onlymp3files = []
-#         for f in files:
-#             if f[-3:] == "mp3":
-#                 onlymp3files.append(f)
-#
-#         randomfile = random.randint(0, len(onlymp3files)-1)
-#         path = folderpath + "/" + onlymp3files[randomfile]
-#
-#         channel = ctx.message.channel
-#         await bot.send_message(channel, "Playing " + onlymp3files[randomfile][:-4] + "'s in the Bag Sound")
-#
-#         await music(ctx, path)
-#     elif hero2 is None:
-#         path = "./audio/inthebags/" + hero1 + ".mp3"
-#         if os.path.exists(path):
-#             channel = ctx.message.channel
-#             await bot.send_message(channel, "Playing " + hero1 + "'s in the Bag Sound")
-#
-#             await music(ctx, path)
-#         else:
-#             channel = ctx.message.channel
-#             await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n")
-#     else:
-#         path = "./audio/inthebags/" + hero1 + " " + hero2 + ".mp3"
-#         if os.path.exists(path):
-#             channel = ctx.message.channel
-#             await bot.send_message(channel, "Playing " + hero1 + " " + hero2 + "'s in the Bag Sound")
-#
-#             await music(ctx, path)
-#         else:
-#             channel = ctx.message.channel
-#             await bot.send_message(channel, hero1 + " is koa Hero du pfeiffn\n")
-
-
-# Silence useless bug reports messages
 youtube_dl.utils.bug_reports_message = lambda: ''
 
 
