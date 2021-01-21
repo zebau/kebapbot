@@ -1,2 +1,2 @@
 #!/bin/sh
-nohup /usr/bin/python home/kebapbot/kebapbot/music.py &
+nohup /usr/bin/python home/kebapbot/kebapbot/main.py &
