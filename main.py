@@ -590,6 +590,21 @@ def get_correct_sound_path(sound: str):
     if sound == 'idea':
         sound = 'koa_good_idea'
         return sound
+    if sound == 'bmrune':
+        sound = 'beast_rune'
+        return sound
+    if sound == 'onfire':
+        sound = 'jogo_on_fire'
+        return sound
+    if sound == 'danke':
+        sound = 'lernvideo_danke'
+        return sound
+    if sound == 'oah':
+        sound = 'lich_oah'
+        return sound
+    if sound == 'zauberer':
+        sound = 'heftiger_zauberer'
+        return sound
     return sound
 
 
