@@ -1,5 +1,5 @@
 aiohttp
-bs4
+bs4==0.0.1
 beautifulsoup4
 mutagen
 discord.py~=1.6
