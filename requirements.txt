@@ -1,5 +1,5 @@
 aiohttp==3.7.3
-bs4
+bs4==0.0.1
 beautifulsoup4==4.9.3
 mutagen==1.45.1
 discord.py~=1.6
