@@ -512,18 +512,30 @@ class Music(commands.Cog):
     @commands.command(name='taunt')
     async def _taunt(self, ctx: commands.Context, *, sound=None):
         if sound is None:
-            tauntfiles=os.listdir('./audio/taunts/')
-            tauntfile=random.choice(tauntfiles)
-            path = "./audio/taunts/" + tauntfile
+            taunt_files = os.listdir('./audio/taunts/')
+            taunt_file = random.choice(taunt_files)
+            path = "./audio/taunts/" + taunt_file
             await ctx.send("Playing {}'s taunt sound".format(path[15:-4]))
         else:
             path = "./audio/taunts/" + get_correct_sound_path(sound) + ".mp3"
 
         await play_audio(self, ctx, path)
 
+    @commands.command(name='laugh')
+    async def _laugh(self, ctx: commands.Context, *, sound=None):
+        if sound is None:
+            laugh_files = os.listdir('./audio/laughs/')
+            laugh_file = random.choice(laugh_files)
+            path = "./audio/laughs/" + laugh_file
+            await ctx.send("Playing {}'s laugh sound".format(path[15:-4]))
+        else:
+            path = "./audio/laughs/" + get_correct_sound_path(sound) + ".mp3"
+
+        await play_audio(self, ctx, path)
+
     @commands.command(name="inthebag")
-    async def _in_the_bags(self, ctx: commands.Context, *, heroname: str):
-        path = "./audio/inthebags/" + heroname + ".mp3"
+    async def _in_the_bags(self, ctx: commands.Context, *, hero_name: str):
+        path = "./audio/inthebags/" + hero_name + ".mp3"
         await play_audio(self, ctx, path)
 
     @commands.command(name="dotanow")

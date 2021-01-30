@@ -1,6 +1,6 @@
 aiohttp
 bs4
 beautifulsoup4==4.9.3
-mutagen
+mutagen==1.45.1
 discord.py~=1.6
 youtube_dl~=2021.1.8
