@@ -641,4 +641,21 @@ async def on_ready():
     await bot.change_presence(activity=game)
 
 
+@bot.command(name='gr', help='Give role to user')
+async def give_role(ctx, user: discord.Member, role_name):
+    role = discord.utils.get(ctx.guild.roles, name=role_name)
+    if role:
+        await user.add_roles(role)
+        await ctx.send(f'{user.mention} has been given the role {role_name}.')
+    else:
+        await ctx.send(f'Role {role_name} not found.')
+
+
+@bot.command(name='so', help='Print Server owner in console')
+async def server_information(ctx):
+    print(ctx.guild.owner_id)
+    print(ctx.guild.members)
+    print(ctx.guild.roles)
+    print(ctx.guild.id)
+
 bot.run(BOT_TOKEN)
